@@ -1,0 +1,38 @@
+on boot
+    chown system system /sys/class/qcom-haptics/primitive_duration
+    chmod 0600 /sys/class/qcom-haptics/primitive_duration
+    chmod 0666 /sys/class/leds/vibrator_r/f0_save
+    chmod 0666 /sys/class/leds/vibrator_l/f0_save
+    chmod 0666 /dev/aw8697_haptic_r
+    chmod 0666 /dev/aw8697_haptic_l
+    chown system system /dev/aw8697_haptic_r
+    chown system system /dev/aw8697_haptic_l
+
+    chmod 0666 /sys/class/leds/vibrator_r/activate
+    chmod 0666 /sys/class/leds/vibrator_r/activate_mode
+    chmod 0666 /sys/class/leds/vibrator_r/index
+    chmod 0666 /sys/class/leds/vibrator_r/duration
+    chmod 0666 /sys/class/leds/vibrator_r/gain
+    chmod 0666 /sys/class/leds/vibrator_r/double
+    chmod 0666 /sys/class/leds/vibrator_l/activate
+    chmod 0666 /sys/class/leds/vibrator_l/activate_mode
+    chmod 0666 /sys/class/leds/vibrator_l/index
+    chmod 0666 /sys/class/leds/vibrator_l/duration
+    chmod 0666 /sys/class/leds/vibrator_l/gain
+    chmod 0666 /sys/class/leds/vibrator_l/double
+
+service vendor.qti.vibrator /vendor/bin/hw/vendor.qti.hardware.vibrator.service
+    user system
+    group system input
+
+    setenv RICHTAP_DEVICE_PATH  /dev/aw8697_haptic_r;/dev/aw8697_haptic_l
+    setenv ENV_RICHTAP_CONFIG_PATH /odm/etc/aac_richtap_r.config;/odm/etc/aac_richtap_l.config
+    disabled
+    seclabel u:r:recovery:s0
+
+
+on property:sys.boot_completed=1
+    setprop vendor.haptic.calibrate.done 1
+
+on late-init
+    write /sys/class/leds/vibrator/trigger "transient"

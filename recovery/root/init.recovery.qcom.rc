@@ -72,6 +72,8 @@ on property:twrp.modules.loaded=true
     mount ext4 /dev/block/bootdevice/by-name/persist /mnt/vendor/persist
     mount vfat /dev/block/bootdevice/by-name/spunvm /mnt/vendor/spunvm
 
+    start vendor.qti.vibrator
+
     start vendor.qseecomd
     start vendor.keymint-qti
     start vendor.keymint-spu-qti
