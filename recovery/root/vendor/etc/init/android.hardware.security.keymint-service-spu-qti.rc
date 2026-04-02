@@ -2,14 +2,7 @@
 # All Rights Reserved.
 # Confidential and Proprietary - Qualcomm Technologies, Inc.
 
-on init && property:ro.boot.product.vendor.sku=pineapple
-    enable vendor.keymint-spu-qti
-
-on init && property:ro.boot.product.vendor.sku=sun
-    enable vendor.keymint-spu-qti
-
 service vendor.keymint-spu-qti /vendor/bin/hw/android.hardware.security.keymint-service-spu-qti
-    disabled
     class early_hal
     user system
     group system drmrpc

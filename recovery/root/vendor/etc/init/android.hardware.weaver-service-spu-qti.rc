@@ -1,0 +1,12 @@
+on init && property:ro.boot.product.vendor.sku=pineapple
+    enable vendor.spu_weaver
+
+on init && property:ro.boot.product.vendor.sku=sun
+    enable vendor.spu_weaver
+
+service vendor.spu_weaver /vendor/bin/hw/android.hardware.weaver-service-spu-qti
+    disabled
+    class hal
+    user system
+    group system drmrpc
+    seclabel u:r:recovery:s0

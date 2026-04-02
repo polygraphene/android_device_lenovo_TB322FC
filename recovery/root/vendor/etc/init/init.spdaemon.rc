@@ -1,0 +1,25 @@
+on fs
+    mkdir /mnt/vendor/persist/secnvm 0770 system system
+    mkdir /mnt/vendor/persist/spudc 0770 system system
+    mkdir /mnt/vendor/spunvm 0660 system system
+
+on post-fs
+    mkdir /mnt/vendor/persist/iar_db 0770 system system
+    #start vendor.spdaemon
+    #start vendor.sec_nvm
+
+service vendor.spdaemon /vendor/bin/spdaemon
+    class core
+    user system
+    group system
+    disabled
+    shutdown critical
+    seclabel u:r:recovery:s0
+
+service vendor.sec_nvm /vendor/bin/sec_nvm
+    class core
+    user system
+    group system
+    disabled
+    seclabel u:r:recovery:s0
+
