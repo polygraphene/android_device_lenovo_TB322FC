@@ -3,3 +3,6 @@ ro.charger.enable_suspend=true
 
 # FUSE passthrough
 persist.sys.fuse.passthrough.enable=true
+
+# For keymint to properly start.
+vendor.gatekeeper.is_security_level_spu=1
