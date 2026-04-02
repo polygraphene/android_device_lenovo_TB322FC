@@ -66,12 +66,7 @@ import /vendor/etc/ueventd.qcom.userdebug.rc
 # Firmware directory Path
 # Below macro will be read by uevent and path will
 # be added to search path for firmware loading
-# ifndef OPLUS_FEATURE_WIFI_BDF
-# lixiong2@CONNECTIVITY.WIFI.HARDWARE.BDF.7516716, 2024.7.1, modify for 8750
-# firmware_directories /vendor/firmware_mnt/image/
-# else /* OPLUS_FEATURE_WIFI_BDF */
-firmware_directories /mnt/vendor/persist/copy/ /odm/etc/wifi/ /mnt/vendor/persist/ /vendor/firmware_mnt/image/
-# endif /* OPLUS_FEATURE_WIFI_BDF */
+firmware_directories /vendor/firmware_mnt/image/
 
 subsystem dma_heap
     devname uevent_devpath
@@ -234,9 +229,6 @@ subsystem mem_buf_vm
 /dev/system_health_monitor 0644  radio      system
 /dev/mdss_rotator         0664   system     system
 /dev/spec_sync            0660   system     system
-
-#Chengming@Camera,2024/01/19,add for camera_extension.ko
-/dev/camera_extension_monitor 0660 cameraserver   camera
 
 #QDSS
 /dev/byte-cntr            0660   system    oem_2902
@@ -481,6 +473,8 @@ subsystem mem_buf_vm
 #Haptics class devices
 /sys/class/qcom-haptics    visense_enabled     0400    system    system
 /sys/class/qcom-haptics    primitive_duration  0600    system    system
+/sys/class/qcom-haptics    v_gain_error        0640    system    audio
+/sys/class/qcom-haptics    i_gain_error        0640    system    audio
 
 # NPU device
 /dev/msm_npu             0644   system     system
@@ -494,6 +488,11 @@ subsystem mem_buf_vm
 /sys/class/typec/port0		power_role	0660	system	usb
 /sys/class/typec/port0		port_type	0660	system	usb
 /sys/class/typec/port0-partner	accessory_mode	0440	system	usb
+
+/sys/class/typec/port1		data_role	0660	system	usb
+/sys/class/typec/port1		power_role	0660	system	usb
+/sys/class/typec/port1		port_type	0660	system	usb
+/sys/class/typec/port1-partner	accessory_mode	0440	system	usb
 
 # USB Dynamic Disable
 /sys/bus/platform/devices/a600000.ssusb	dynamic_disable	0220	root	usb

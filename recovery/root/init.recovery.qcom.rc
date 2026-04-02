@@ -60,7 +60,7 @@ on property:twrp.modules.loaded=true
     wait /sys/class/power_supply/battery
     start vendor.health-default
     start vendor.boot-qti
-    start vendor.oplus.vibrator
+    #start vendor.oplus.vibrator
     start vendor.gatekeeper_default
     umount /firmware
 

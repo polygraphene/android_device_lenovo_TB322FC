@@ -55,7 +55,7 @@ if [ -d /proc/sys/walt ]; then
 	echo 30 > /sys/devices/system/cpu/cpu0/core_ctl/busy_down_thres
 	echo 100 > /sys/devices/system/cpu/cpu0/core_ctl/offline_delay_ms
 	echo 6 > /sys/devices/system/cpu/cpu0/core_ctl/task_thres
-	echo 0 0 0 0 1 1 > /sys/devices/system/cpu/cpu0/core_ctl/not_preferred
+	echo 0 0 1 1 0 0 > /sys/devices/system/cpu/cpu0/core_ctl/not_preferred
 	echo 0xFF > /sys/devices/system/cpu/cpu0/core_ctl/nrrun_cpu_mask
 	echo 0x00 > /sys/devices/system/cpu/cpu0/core_ctl/nrrun_cpu_misfit_mask
 	echo 0x00 > /sys/devices/system/cpu/cpu0/core_ctl/assist_cpu_mask
@@ -95,8 +95,6 @@ if [ -d /proc/sys/walt ]; then
 	echo 8500000 1000000 1000000 1000000 1000000 1000000 2000000 2000000 > /proc/sys/walt/sched_util_busy_hyst_cpu_ns
 	echo 255 > /proc/sys/walt/sched_util_busy_hysteresis_enable_cpus
 	echo 30 30 30 30 30 30 15 15 > /proc/sys/walt/sched_util_busy_hyst_cpu_util
-	echo 255 > /proc/sys/walt/sched_legacy_smart_freq_hysteresis_enable_cpus
-	echo 8500000 4000000 4000000 4000000 4000000 4000000 2000000 2000000 > /proc/sys/walt/sched_legacy_smart_freq_hyst_cpu_ns
 	echo 40 > /proc/sys/walt/sched_cluster_util_thres_pct
 	echo 30 > /proc/sys/walt/sched_idle_enough
 	echo 10 > /proc/sys/walt/sched_ed_boost
@@ -156,8 +154,6 @@ if [ -d /proc/sys/walt ]; then
 		echo 1344000 > /sys/devices/system/cpu/cpufreq/policy0/walt/hispeed_freq
 		echo 2380800 > /sys/devices/system/cpu/cpufreq/policy6/walt/hispeed_freq
 	fi
-        # Disable hispeed_freq while cur_freq < 748800 (fangqiurong@BSP.CPU, 2024/8/2)
-        echo 748800 > /sys/devices/system/cpu/cpufreq/policy0/walt/hispeed_cond_freq
 else
 	echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
 	echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy6/scaling_governor
@@ -254,7 +250,5 @@ case "$console_config" in
 		echo "Enable console config to $console_config"
 	;;
 esac
-
-echo 1 > /proc/oplus_scheduler/sched_assist/silver_perf_core
 
 setprop vendor.post_boot.parsed 1

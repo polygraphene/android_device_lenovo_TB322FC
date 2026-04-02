@@ -1,11 +1,31 @@
 <!--
     Input:
-        device/qcom/sun/manifest_sun.xml
+        device/lenovo/elden_prc_wifi/manifest_sun.xml
 -->
 <manifest version="8.0" type="device" target-level="202404">
     <hal format="aidl">
         <name>android.hardware.gatekeeper</name>
         <fqname>IGatekeeper/default</fqname>
+    </hal>
+    <hal format="aidl">
+        <name>android.hardware.security.keymint</name>
+        <version>3</version>
+        <fqname>IKeyMintDevice/strongbox</fqname>
+    </hal>
+    <hal format="aidl">
+        <name>android.hardware.security.keymint</name>
+        <version>3</version>
+        <fqname>IRemotelyProvisionedComponent/strongbox</fqname>
+    </hal>
+    <hal format="aidl">
+        <name>android.hardware.weaver</name>
+        <version>2</version>
+        <fqname>IWeaver/default</fqname>
+    </hal>
+    <hal format="aidl">
+        <name>vendor.qti.hardware.spu</name>
+        <version>2</version>
+        <fqname>ISPUManager/default</fqname>
     </hal>
     <sepolicy>
         <version>202404</version>

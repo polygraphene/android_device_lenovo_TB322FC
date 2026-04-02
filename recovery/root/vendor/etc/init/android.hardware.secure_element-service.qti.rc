@@ -1,5 +1,0 @@
-service vendor.secure_element /vendor/bin/hw/android.hardware.secure_element-service.qti
-    class hal
-    user root
-    group nfc root
-    seclabel u:r:recovery:s0

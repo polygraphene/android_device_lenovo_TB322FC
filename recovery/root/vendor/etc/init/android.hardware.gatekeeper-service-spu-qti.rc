@@ -1,0 +1,9 @@
+service vendor.gatekeeper_spu /vendor/bin/hw/android.hardware.gatekeeper-service-spu-qti
+    class early_hal
+    user system
+    group system
+    disabled
+    seclabel u:r:recovery:s0
+
+on property:vendor.gatekeeper.is_security_level_spu=1
+    enable vendor.gatekeeper_spu
