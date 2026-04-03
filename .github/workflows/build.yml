@@ -106,6 +106,10 @@ jobs:
         repo sync
         kill $TIP_PID && exit 0
 
+    - name: Apply patches
+      run: |
+        (cd bootable/recovery; git fetch https://github.com/polygraphene/android_bootable_recovery twrp-16.0-TB322FC && git checkout FETCH_HEAD)
+
     - name: Setup device
       run: |
         git clone ${{ github.event.inputs.DEVICE_TREE_URL }} -b ${{ github.event.inputs.DEVICE_TREE_BRANCH }} device/${{ github.event.inputs.DEVICE_PATH }}
