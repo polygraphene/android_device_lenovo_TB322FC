@@ -53,7 +53,7 @@ jobs:
           echo 'BUILD_INFO<<EOF'
           echo This is a TWRP build for Lenovo Y700 gen4 TB322FC.
           echo Choose your preferred theme between portrait and landscape.
-          echo See [README](https://github.com/polygraphene/android_device_lenovo_TB322FC) for the install instruction.
+          echo 'See [README](https://github.com/polygraphene/android_device_lenovo_TB322FC) for the install instruction.'
           echo
           echo Manifest url: ${{ github.event.inputs.TWRP_MANIFEST_URL }}
           echo Manifest branch: ${{ github.event.inputs.TWRP_MANIFEST_BRANCH }}
