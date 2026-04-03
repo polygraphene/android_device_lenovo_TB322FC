@@ -105,7 +105,17 @@ TW_DEFAULT_BRIGHTNESS   := 1000
 TW_FRAMERATE            := 60
 TW_MAX_BRIGHTNESS       := 2047
 TW_SCREEN_BLANK_ON_BOOT := true
-TW_THEME                := portrait_hdpi
+ifeq ($(USE_LANDSCAPE),true)
+	RECOVERY_TOUCHSCREEN_FLIP_Y := true
+	RECOVERY_TOUCHSCREEN_SWAP_XY := true
+	TW_THEME := landscape_hdpi
+	TW_ROTATION := 90
+else
+	RECOVERY_TOUCHSCREEN_FLIP_Y := false
+	RECOVERY_TOUCHSCREEN_SWAP_XY := false
+	TW_THEME := portrait_hdpi
+	TW_ROTATION := 0
+endif
 
 # TWRP file system
 RECOVERY_SDCARD_ON_DATA     := true
