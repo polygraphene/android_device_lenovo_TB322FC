@@ -1,12 +1,4 @@
-# TWRP device tree for OPLUS sm87xx sreies
-
-## Supported devices
-
-- Realme GT7 Pro (CN, GL)
-- Realme GT7 Pro Speed (CN, GL)
-- OnePlus 13T (CN)
-- OnePlus Ace 5 Pro (CN)
-- OnePlus 13 (CN)
+# TWRP device tree for Y700 gen4 TB322FC
 
 ## Build it yourself?
 
@@ -14,12 +6,13 @@
 mkdir twrp && cd twrp
 repo init --depth=1 -u https://github.com/TWRP-Test/platform_manifest_twrp_aosp.git -b twrp-16.0
 repo sync
-git clone --depth=1 https://github.com/kmiit/twrp_device_oplus_sm87xx device/oplus/sm87xx
+(cd bootable/recovery; git fetch https://github.com/polygraphene/android_bootable_recovery twrp-16.0-TB322FC && git checkout FETCH_HEAD)
+git clone --depth=1 https://github.com/polygraphene/android_device_lenovo_TB322FC device/lenovo/TB322FC
 ```
 
 ```shell
 source build/envsetup.sh
-lunch twrp_sm87xx
+lunch twrp_TB322FC
 make recoveryimage
 ```
 
@@ -35,12 +28,18 @@ Works:
 - [X] Fasbootd
 - [X] Flashing
 - [X] MTP
-- [X] Sideload
 - [X] Touch
 - [X] USB OTG
 - [X] Vibrator
 
 ## To use it:
+
+For locked device:
+Devices with the ZUI version below or equal to 1.5.10.138 can be flashed without unlocking (Lenovo testkey vulnerability).
+Use [qualcomm/qdl](https://github.com/qualcomm/qdlrs) or [bkerler/edl](https://github.com/bkerler/edl) to flash the image by EDL mode.
+TODO: Add detailed instruction later.
+
+For unlocked device:
 
 ```shell
 fastboot flash recovery recovery.img
