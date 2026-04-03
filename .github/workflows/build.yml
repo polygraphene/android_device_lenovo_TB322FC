@@ -14,7 +14,7 @@ on:
       DEVICE_TREE_URL:
         description: "Device tree url"
         required: true
-        default: "https://github.com/kmiit/twrp_device_oplus_sm87xx"
+        default: "https://github.com/polygraphene/android_device_lenovo_TB322FC"
       DEVICE_TREE_BRANCH:
         description: "Device tree branch"
         required: true
@@ -22,11 +22,11 @@ on:
       DEVICE_PATH:
         description: "Device path device/"
         required: true
-        default: "oplus/sm87xx"
+        default: "lenovo/TB322FC"
       DEVICE_NAME:
         description: "Device name"
         required: true
-        default: "sm87xx"
+        default: "TB322FC"
       LUNCH_TARGET:
         description: "lunch twrp_ (default same as device name)"
         required: false
@@ -51,6 +51,9 @@ jobs:
         fi
         {
           echo 'BUILD_INFO<<EOF'
+          echo This is a TWRP build for Lenovo Y700 gen4 TB322FC.
+          echo Choose your preferred theme between portrait and landscape.
+          echo See [README](https://github.com/polygraphene/android_device_lenovo_TB322FC) for the install instruction.
           echo
           echo Manifest url: ${{ github.event.inputs.TWRP_MANIFEST_URL }}
           echo Manifest branch: ${{ github.event.inputs.TWRP_MANIFEST_BRANCH }}
@@ -121,7 +124,7 @@ jobs:
         cat INFO.txt
       working-directory: device/${{ github.event.inputs.DEVICE_PATH }}
 
-    - name: Build TWRP
+    - name: Build TWRP Portrait
       run: |
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
@@ -133,14 +136,30 @@ jobs:
         (while true; do echo `date +%T` "Building TWRP..."; free -h; sleep 10; done) &
         TIP_PID=$!
         m ${{ github.event.inputs.BUILD_PARTITION }}image
-        mv out/target/product/${{ github.event.inputs.DEVICE_NAME }}/${{ github.event.inputs.BUILD_PARTITION }}.img out/target/product/${{ github.event.inputs.DEVICE_NAME }}/TWRP-3.7.1-16-${{ github.event.inputs.DEVICE_NAME }}-${{ env.BUILD_DATE }}.img
+        mv out/target/product/${{ github.event.inputs.DEVICE_NAME }}/${{ github.event.inputs.BUILD_PARTITION }}.img out/target/product/${{ github.event.inputs.DEVICE_NAME }}/TWRP-3.7.1-16-${{ github.event.inputs.DEVICE_NAME }}-${{ env.BUILD_DATE }}-portrait.img
+        kill $TIP_PID && exit 0        
+
+    - name: Build TWRP Landscape
+      run: |
+        source build/envsetup.sh
+        export ALLOW_MISSING_DEPENDENCIES=true
+        export CCACHE_DIR=.ccache
+        export CCACHE_EXEC=$(command -v ccache)        
+        export CCACHE_MAXSIZE=5G
+        export USE_CCACHE=1
+        lunch twrp_${{ env.LUNCH_TARGET }}
+        (while true; do echo `date +%T` "Building TWRP..."; free -h; sleep 10; done) &
+        TIP_PID=$!
+        m ${{ github.event.inputs.BUILD_PARTITION }}image USE_LANDSCAPE=true
+        mv out/target/product/${{ github.event.inputs.DEVICE_NAME }}/${{ github.event.inputs.BUILD_PARTITION }}.img out/target/product/${{ github.event.inputs.DEVICE_NAME }}/TWRP-3.7.1-16-${{ github.event.inputs.DEVICE_NAME }}-${{ env.BUILD_DATE }}-landscape.img
         kill $TIP_PID && exit 0        
 
     - name: Upload to Release
       uses: softprops/action-gh-release@v2
       with:
         files: | 
-          out/target/product/${{ github.event.inputs.DEVICE_NAME }}/TWRP-3.7.1-16-${{ github.event.inputs.DEVICE_NAME }}-${{ env.BUILD_DATE }}.img
+          out/target/product/${{ github.event.inputs.DEVICE_NAME }}/TWRP-3.7.1-16-${{ github.event.inputs.DEVICE_NAME }}-${{ env.BUILD_DATE }}-portrait.img
+          out/target/product/${{ github.event.inputs.DEVICE_NAME }}/TWRP-3.7.1-16-${{ github.event.inputs.DEVICE_NAME }}-${{ env.BUILD_DATE }}-landscape.img
         name: TWRP-3.7.1-16-${{ github.event.inputs.DEVICE_NAME }}-${{ env.BUILD_DATE }}-${{ github.run_id }}
         tag_name: ${{ env.BUILD_DATE }}-${{ github.run_id }}
         body_path: device/${{ github.event.inputs.DEVICE_PATH }}/INFO.txt
