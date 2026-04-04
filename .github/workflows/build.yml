@@ -176,8 +176,8 @@ jobs:
           out/target/product/${{ github.event.inputs.DEVICE_NAME }}/TWRP-3.7.1-16-${{ github.event.inputs.DEVICE_NAME }}-${{ env.BUILD_DATE }}${{ github.event.inputs.VERSION_SUFFIX }}-portrait.img
           out/target/product/${{ github.event.inputs.DEVICE_NAME }}/TWRP-3.7.1-16-${{ github.event.inputs.DEVICE_NAME }}-${{ env.BUILD_DATE }}${{ github.event.inputs.VERSION_SUFFIX }}-landscape.img
           manifest-${{ github.event.inputs.DEVICE_NAME }}-${{ env.BUILD_DATE }}${{ github.event.inputs.VERSION_SUFFIX }}.xml
-        name: TWRP-3.7.1-16-${{ github.event.inputs.DEVICE_NAME }}-${{ env.BUILD_DATE }}-${{ github.run_id }}
-        tag_name: ${{ env.BUILD_DATE }}${{ github.event.inputs.VERSION_SUFFIX }}-${{ github.run_id }}
+        name: TWRP-3.7.1-16-${{ github.event.inputs.DEVICE_NAME }}-${{ env.BUILD_DATE }}${{ github.event.inputs.VERSION_SUFFIX }}
+        tag_name: ${{ env.BUILD_DATE }}${{ github.event.inputs.VERSION_SUFFIX }}
         body_path: device/${{ github.event.inputs.DEVICE_PATH }}/INFO.txt
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
