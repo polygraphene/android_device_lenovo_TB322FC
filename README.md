@@ -47,15 +47,23 @@ Devices with the ZUI 1.5.10.138 or prior can be flashed without unlocking (Lenov
 Use EDL mode to flash because fastboot flash doesn't work on locked device.
 
 ### Flash with qdlrs
-Instruction to flash with Qualcomm's [qdlrs](https://github.com/qualcomm/qdlrs):
+To flash with Qualcomm's [qdlrs](https://github.com/qualcomm/qdlrs):
 
 1. Download [my build](https://github.com/polygraphene/qdlrs/releases) of qdlrs.
 2. Get xbl_s_devprg_ns.melf from qpst ROM.
 3. Check COM<number> in device manager and run the following commands:
 ```
-> .\qdl-rs-windows-x64.exe --loader-path xbl_s_devprg_ns.melf --storage-type ufs --backend serial --dev-path COM<number> --phys-part-idx 4 write recovery_a TWRP-3.7.1-16-TB322FC-2026-04-03-portrait.img
-> .\qdl-rs-windows-x64.exe --loader-path xbl_s_devprg_ns.melf --storage-type ufs --backend serial --dev-path COM<number> --phys-part-idx 4 write recovery_b TWRP-3.7.1-16-TB322FC-2026-04-03-portrait.img
+> .\qdl-rs-windows-x64.exe --loader-path xbl_s_devprg_ns.melf --storage-type ufs --backend serial --dev-path COM<number> --phys-part-idx 4 write recovery_a TWRP-3.7.1-16-TB322FC-2026-04-04-2-portrait.img
+...
+Loader sent. Hack away!
+Found protocol version 1
+Sending partition recovery_a: 100.00 MB / 100.00 MB [=================================================================================] 100.00 % 40.06 MB/s A
+ll went well! Resetting to edl
+
+> .\qdl-rs-windows-x64.exe --loader-path xbl_s_devprg_ns.melf --storage-type ufs --backend serial --dev-path COM<number> --phys-part-idx 4 write recovery_b TWRP-3.7.1-16-TB322FC-2026-04-04-2-portrait.img
+...
 > .\qdl-rs-windows-x64.exe --loader-path xbl_s_devprg_ns.melf --storage-type ufs --backend serial --dev-path COM<number> reset
+...
 ```
 
 ### Flash via fastboot
@@ -75,7 +83,7 @@ fastboot flash recovery_b recovery.img
 ## Acknowledgment
 
 - [TWRP-Test](https://github.com/TWRP-Test/platform_manifest_twrp_aosp)
-- [twrp_device_oplus_sm87xx](https://github.com/kmiit/twrp_device_oplus_sm87xx)
+- [twrp_device_oplus_sm87xx](https://github.com/kmiit/twrp_device_oplus_sm87xx) - This repo is base on it.
 - [twrp_device_xiaomi_sm8750_thales](https://github.com/YuKongA/twrp_device_xiaomi_sm8750_thales)
 - [TWRP](https://twrp.me/)
 - [qdlrs](https://github.com/qualcomm/qdlrs)
