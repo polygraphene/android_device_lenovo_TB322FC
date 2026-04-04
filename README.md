@@ -1,5 +1,10 @@
 # TWRP device tree for Y700 gen4 TB322FC
 
+TWRP build for Legion Tablet Y700 gen4.
+
+See https://github.com/polygraphene/android_device_lenovo_TB320FC for Y700 2023 (gen2).
+See https://github.com/polygraphene/android_device_lenovo_TB321FU for Y700 2025 (gen3).
+
 ## Build it yourself?
 
 ```shell
@@ -16,7 +21,7 @@ lunch twrp_TB322FC
 make recoveryimage
 ```
 
-If there is no error, recovery.img will be found in `out/target/product/sm87xx/recovery.img`
+If there is no error, recovery.img will be found in `out/target/product/TB322FC/recovery.img`
 
 ## Features
 
@@ -34,11 +39,25 @@ Works:
 
 ## To use it:
 
-For locked device:
-Devices with the ZUI version below or equal to 1.5.10.138 can be flashed without unlocking (Lenovo testkey vulnerability).
-Use [qualcomm/qdl](https://github.com/qualcomm/qdlrs) or [bkerler/edl](https://github.com/bkerler/edl) to flash the image by EDL mode.
-TODO: Add detailed instruction later.
+Download from recovery image from [release](https://github.com/polygraphene/android_device_lenovo_TB322FC/releases) and flash it.
 
+For locked device:
+Devices with the ZUI 1.5.10.138 or prior can be flashed without unlocking (Lenovo testkey vulnerability).
+Flash it from EDL mode because fastboot flash doesn't work on locked device.
+
+### Flash with qdlrs
+Instruction to flash with Qualcomm's [qdlrs](https://github.com/qualcomm/qdlrs):
+
+1. Download [my build](https://github.com/polygraphene/qdlrs/releases) of qdlrs.
+2. Get xbl_s_devprg_ns.melf from qpst ROM.
+3. Check COM<number> in device manager and run the following commands:
+```
+> .\qdl-rs-windows-x64.exe --loader-path xbl_s_devprg_ns.melf --storage-type ufs --backend serial --dev-path COM<number> --phys-part-idx 4 write recovery_a TWRP-3.7.1-16-TB322FC-2026-04-03-portrait.img
+> .\qdl-rs-windows-x64.exe --loader-path xbl_s_devprg_ns.melf --storage-type ufs --backend serial --dev-path COM<number> --phys-part-idx 4 write recovery_b TWRP-3.7.1-16-TB322FC-2026-04-03-portrait.img
+> .\qdl-rs-windows-x64.exe --loader-path xbl_s_devprg_ns.melf --storage-type ufs --backend serial --dev-path COM<number> reset
+```
+
+### Flash via fastboot
 For unlocked device:
 
 ```shell
@@ -51,3 +70,12 @@ or
 fastboot flash recovery_a recovery.img
 fastboot flash recovery_b recovery.img
 ```
+
+## Acknowledgment
+
+- [TWRP-Test](https://github.com/TWRP-Test/platform_manifest_twrp_aosp)
+- [twrp_device_oplus_sm87xx](https://github.com/kmiit/twrp_device_oplus_sm87xx)
+- [twrp_device_xiaomi_sm8750_thales](https://github.com/YuKongA/twrp_device_xiaomi_sm8750_thales)
+- [TWRP](https://twrp.me/)
+- [qdlrs](https://github.com/qualcomm/qdlrs)
+
