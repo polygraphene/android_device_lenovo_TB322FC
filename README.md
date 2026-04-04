@@ -2,8 +2,9 @@
 
 TWRP build for Legion Tablet Y700 gen4.
 
-See https://github.com/polygraphene/android_device_lenovo_TB320FC for Y700 2023 (gen2).
-See https://github.com/polygraphene/android_device_lenovo_TB321FU for Y700 2025 (gen3).
+## Other devices
+- [TWRP for Y700 2023 (gen2)](https://github.com/polygraphene/android_device_lenovo_TB320FC)
+- [TWRP for Y700 2025 (gen3)](https://github.com/polygraphene/android_device_lenovo_TB321FU)
 
 ## Build it yourself?
 
@@ -41,9 +42,9 @@ Works:
 
 Download from recovery image from [release](https://github.com/polygraphene/android_device_lenovo_TB322FC/releases) and flash it.
 
-For locked device:
+For locked device:  
 Devices with the ZUI 1.5.10.138 or prior can be flashed without unlocking (Lenovo testkey vulnerability).
-Flash it from EDL mode because fastboot flash doesn't work on locked device.
+Use EDL mode to flash because fastboot flash doesn't work on locked device.
 
 ### Flash with qdlrs
 Instruction to flash with Qualcomm's [qdlrs](https://github.com/qualcomm/qdlrs):
