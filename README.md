@@ -38,6 +38,14 @@ Works:
 - [X] USB OTG
 - [X] Vibrator
 
+## Screenshots
+
+Landscape theme:  
+<img width="760" height="476" style="max-width: 100%; height: auto;" alt="screenshot landscape theme" src="https://github.com/user-attachments/assets/6bb80841-7409-46be-beec-ca8d58fb1ff8" />
+
+Portrait theme:  
+<img width="476" height="760" style="max-width: 100%; height: auto;" alt="screenshot portrait theme" src="https://github.com/user-attachments/assets/9e595287-3359-49c1-ae5c-df92b42a5d2f" />
+
 ## To use it:
 
 Download from recovery image from [release](https://github.com/polygraphene/android_device_lenovo_TB322FC/releases) and flash it.
