@@ -143,6 +143,7 @@ jobs:
         mv out/target/product/${{ github.event.inputs.DEVICE_NAME }}/${{ github.event.inputs.BUILD_PARTITION }}.img out/target/product/${{ github.event.inputs.DEVICE_NAME }}/TWRP-3.7.1-16-${{ github.event.inputs.DEVICE_NAME }}-${{ env.BUILD_DATE }}-portrait.img
         kill $TIP_PID && exit 0        
 
+    # Do light-weight clean up, then build landscape variant
     - name: Build TWRP Landscape
       run: |
         source build/envsetup.sh
@@ -154,6 +155,7 @@ jobs:
         lunch twrp_${{ env.LUNCH_TARGET }}
         (while true; do echo `date +%T` "Building TWRP..."; free -h; sleep 10; done) &
         TIP_PID=$!
+        rm -r out/target/product/${{ github.event.inputs.DEVICE_NAME }}/ramdisk-recovery.* out/target/product/${{ github.event.inputs.DEVICE_NAME }}/recovery.img out/target/product/${{ github.event.inputs.DEVICE_NAME }}/recovery/ || true
         m ${{ github.event.inputs.BUILD_PARTITION }}image USE_LANDSCAPE=true
         mv out/target/product/${{ github.event.inputs.DEVICE_NAME }}/${{ github.event.inputs.BUILD_PARTITION }}.img out/target/product/${{ github.event.inputs.DEVICE_NAME }}/TWRP-3.7.1-16-${{ github.event.inputs.DEVICE_NAME }}-${{ env.BUILD_DATE }}-landscape.img
         kill $TIP_PID && exit 0        
